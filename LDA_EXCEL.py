@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 # 读写2003 excel
-import xlrd
+import openpyxl
 import xlwt
+import xlrd
+from xlutils.copy import copy
 # 读写2007 excel
 
 
@@ -56,6 +58,16 @@ def read07Excel(path):
             print(cell.value, "\t", end="")
         print()
 
+def excelwrite(filename,value):         
+    workbook = xlrd.open_workbook(filename) 
+    sheet = workbook.sheet_by_index(0)  
+    rowNum = sheet.nrows    
+    colNum = sheet.ncols    
+    newbook = copy(workbook)    
+    newsheet = newbook.get_sheet(0) # 在末尾增加新行
+    for i in range(0,len(value)):
+        newsheet.write(rowNum, i, value[i]) # 覆盖保存  
+    newbook.save(filename)
 
 file_2003 = 'test/2003.xls'
 file_2007 = 'test/2007.xlsx'
