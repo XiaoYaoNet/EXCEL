@@ -69,6 +69,14 @@ def excelwrite(filename,value):
         newsheet.write(rowNum, i, value[i]) # 覆盖保存  
     newbook.save(filename)
 
+def add07Excel(path,value):
+    wb = openpyxl.load_workbook(path)
+    ws = wb['Sheet1']
+    #for x in data:
+    ws.append(value)
+    wb.save(path)
+    print("写入成功")
+
 file_2003 = 'test/2003.xls'
 file_2007 = 'test/2007.xlsx'
 
